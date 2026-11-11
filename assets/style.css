@@ -84,6 +84,14 @@ header.solid{background:rgba(251,248,244,.92);backdrop-filter:blur(12px);box-sha
 @media(max-width:900px){.feats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.feats{grid-template-columns:1fr}}
 
+/* delivery */
+.delivery{background:var(--nude)}
+.delivery .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);align-items:center}
+.delivery figure{margin:0;border-radius:28px;overflow:hidden;border:6px solid var(--off);box-shadow:0 30px 60px -30px rgba(80,50,35,.55)}
+.delivery img{width:100%;height:auto;aspect-ratio:1231/1278;object-fit:cover}
+.delivery .lead{margin:0 0 34px}
+@media(max-width:860px){.delivery .wrap{grid-template-columns:1fr}.delivery figure{max-width:520px;margin:0 auto;width:100%}}
+
 /* contact */
 .contact{background:linear-gradient(160deg,#e9cfc4,var(--rose) 140%);text-align:center}
 .contact h2{color:#fff}
