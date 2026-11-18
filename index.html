@@ -68,9 +68,9 @@
 </video>
 </div>
 <div class="carousel" id="carCelular" role="region" aria-roledescription="carrossel" aria-label="Fotos da bolsa de celular e da embalagem">
-<div class="slide on" style="--img:url('assets/WhatsApp_Image_2026-11-17_at_20_29_20.jpeg')"><img src="assets/WhatsApp_Image_2026-11-17_at_20_29_20.jpeg" width="900" height="1600" alt="Bolsa de celular de crochê marrom com plaquinha dourada, dentro da caixa de presente"></div>
-<div class="slide" style="--img:url('assets/WhatsApp_Image_2026-11-17_at_20_29_09.jpeg')"><img src="assets/WhatsApp_Image_2026-11-17_at_20_29_09.jpeg" width="768" height="1364" loading="lazy" decoding="async" alt="Caixa kraft aberta com a bolsa embrulhada em papel de seda e selo feito a mão com amor"></div>
-<div class="slide" style="--img:url('assets/WhatsApp_Image_2026-11-17_at_20_29_10.jpeg')"><img src="assets/WhatsApp_Image_2026-11-17_at_20_29_10.jpeg" width="1183" height="768" loading="lazy" decoding="async" alt="Caixa kraft fechada com selo feito a mão com amor"></div>
+<div class="slide on" style="--img:url('assets/celular-1.jpeg')"><img src="assets/celular-1.jpeg" width="900" height="1600" alt="Bolsa de celular de crochê marrom com plaquinha dourada, dentro da caixa de presente"></div>
+<div class="slide" style="--img:url('assets/celular-2.jpeg')"><img src="assets/celular-2.jpeg" width="768" height="1364" alt="Caixa kraft aberta com a bolsa embrulhada em papel de seda e selo feito a mão com amor"></div>
+<div class="slide" style="--img:url('assets/celular-3.jpeg')"><img src="assets/celular-3.jpeg" width="1183" height="768" alt="Caixa kraft fechada com selo feito a mão com amor"></div>
 <div class="dots" role="tablist" aria-label="Escolher foto"></div>
 </div>
 </div>
@@ -88,6 +88,10 @@
     v.addEventListener('play',slow);
     var p=v.play(); if(p&&p.catch)p.catch(function(){});
     slow();
+    // Safari (modo de pouca energia) pode bloquear o autoplay: toca no primeiro toque/rolagem
+    var kick=function(){var q=v.play();if(q&&q.catch)q.catch(function(){});
+      ['touchstart','pointerdown','scroll','keydown'].forEach(function(ev){window.removeEventListener(ev,kick);});};
+    ['touchstart','pointerdown','scroll','keydown'].forEach(function(ev){window.addEventListener(ev,kick,{passive:true});});
     // só toca quando estiver visível (economiza bateria/dados)
     if('IntersectionObserver' in window){
       new IntersectionObserver(function(es){es.forEach(function(e){
