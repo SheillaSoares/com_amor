@@ -18,7 +18,7 @@
 <body>
 <header id="top"><div class="wrap nav">
 <a class="logo" href="#inicio">Feita à mão <span>♥</span></a>
-<nav class="links" aria-label="Principal"><a href="#bolsas">Bolsas</a><a href="#marca">A marca</a><a href="#diferenciais">Diferenciais</a><a href="#contato">Contato</a></nav>
+<nav class="links" aria-label="Principal"><a href="#bolsas">Bolsas</a><a href="#celular">Celular</a><a href="#marca">A marca</a><a href="#diferenciais">Diferenciais</a><a href="#contato">Contato</a></nav>
 </div></header>
 
 <main>
@@ -35,6 +35,86 @@
 <img class="b" src="assets/bolsa2.jpg" width="900" height="1342" fetchpriority="high" alt="Bolsa de crochê caramelo com franjas e pérolas">
 <div class="badge">feito à mão<br>com amor</div>
 </div></div></section>
+
+<style>
+/* Destaque: bolsa de celular (vídeo + carrossel) */
+.destaque{padding:72px 0;background:var(--off,#faf6f0)}
+.destaque .head{text-align:center;max-width:640px;margin:0 auto 36px}
+.destaque .head p{margin:12px 0 0}
+.destaque .grid-d{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:center}
+.destaque .media{position:relative;border-radius:18px;overflow:hidden;background:#1a1410;box-shadow:0 18px 40px rgba(60,35,15,.18)}
+.destaque video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.carousel{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#efe6da;box-shadow:0 18px 40px rgba(60,35,15,.18)}
+.carousel .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;overflow:hidden}
+.carousel .slide.on{opacity:1}
+.carousel .slide::before{content:"";position:absolute;inset:-20px;background:var(--img) center/cover;filter:blur(22px) brightness(.9);transform:scale(1.1)}
+.carousel .slide img{position:relative;width:100%;height:100%;object-fit:contain;display:block}
+.carousel .dots{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:8px;z-index:2}
+.carousel .dots button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.55);cursor:pointer;transition:.3s}
+.carousel .dots button.on{background:#fff;width:24px;border-radius:6px}
+.destaque .cta-d{text-align:center;margin-top:32px}
+@media (max-width:820px){.destaque{padding:52px 0}.destaque .grid-d{grid-template-columns:1fr;gap:20px}.carousel{max-width:420px;width:100%;margin:0 auto}}
+@media (prefers-reduced-motion:reduce){.carousel .slide{transition:none}}
+</style>
+<section class="destaque" id="celular"><div class="wrap">
+<div class="head reveal">
+<h2>Nova: bolsa de celular ❤️</h2><div class="gold-line" style="margin-inline:auto"></div>
+<p class="lead">Do tamanho certo para o dia a dia: leva o celular e o essencial, com alça transversal e a plaquinha dourada “feito à mão com amor”.</p>
+</div>
+<div class="grid-d">
+<div class="media">
+<video id="vidCelular" autoplay muted loop playsinline preload="auto" aria-label="Vídeo da bolsa de celular de crochê">
+<source src="assets/videobolsacelular.mp4" type="video/mp4">
+</video>
+</div>
+<div class="carousel" id="carCelular" role="region" aria-roledescription="carrossel" aria-label="Fotos da bolsa de celular e da embalagem">
+<div class="slide on" style="--img:url('assets/WhatsApp_Image_2026-11-17_at_20_29_20.jpeg')"><img src="assets/WhatsApp_Image_2026-11-17_at_20_29_20.jpeg" width="900" height="1600" alt="Bolsa de celular de crochê marrom com plaquinha dourada, dentro da caixa de presente"></div>
+<div class="slide" style="--img:url('assets/WhatsApp_Image_2026-11-17_at_20_29_09.jpeg')"><img src="assets/WhatsApp_Image_2026-11-17_at_20_29_09.jpeg" width="768" height="1364" loading="lazy" decoding="async" alt="Caixa kraft aberta com a bolsa embrulhada em papel de seda e selo feito a mão com amor"></div>
+<div class="slide" style="--img:url('assets/WhatsApp_Image_2026-11-17_at_20_29_10.jpeg')"><img src="assets/WhatsApp_Image_2026-11-17_at_20_29_10.jpeg" width="1183" height="768" loading="lazy" decoding="async" alt="Caixa kraft fechada com selo feito a mão com amor"></div>
+<div class="dots" role="tablist" aria-label="Escolher foto"></div>
+</div>
+</div>
+<div class="cta-d reveal"><a class="btn btn-gold" data-wa data-m="Bolsa de celular (marrom)" target="_blank" rel="noopener">Tenho interesse na bolsa de celular</a></div>
+</div></section>
+<script>
+(function(){
+  // Vídeo em câmera lenta e em loop
+  var v=document.getElementById('vidCelular');
+  if(v){
+    var RATE=0.5; // 0.5 = metade da velocidade; ajuste aqui
+    var slow=function(){v.playbackRate=RATE;v.defaultPlaybackRate=RATE;};
+    v.muted=true;
+    v.addEventListener('loadedmetadata',slow);
+    v.addEventListener('play',slow);
+    var p=v.play(); if(p&&p.catch)p.catch(function(){});
+    slow();
+    // só toca quando estiver visível (economiza bateria/dados)
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){es.forEach(function(e){
+        if(e.isIntersecting){var q=v.play();if(q&&q.catch)q.catch(function(){});}else v.pause();
+      });},{threshold:.15}).observe(v);
+    }
+  }
+  // Carrossel automático
+  var c=document.getElementById('carCelular');
+  if(c){
+    var s=c.querySelectorAll('.slide'),d=c.querySelector('.dots'),i=0,t,DELAY=3500;
+    s.forEach(function(_,n){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Foto '+(n+1));
+      b.onclick=function(){go(n);restart();};d.appendChild(b);});
+    var bs=d.querySelectorAll('button');
+    function go(n){s[i].classList.remove('on');bs[i].classList.remove('on');i=(n+s.length)%s.length;s[i].classList.add('on');bs[i].classList.add('on');}
+    function restart(){clearInterval(t);t=setInterval(function(){go(i+1);},DELAY);}
+    bs[0].classList.add('on');
+    restart();
+    c.addEventListener('mouseenter',function(){clearInterval(t);});
+    c.addEventListener('mouseleave',restart);
+    var x0=null;
+    c.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+    c.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>40){go(i+(dx<0?1:-1));restart();}x0=null;});
+  }
+})();
+</script>
 
 <section class="gallery" id="bolsas"><div class="wrap center reveal">
 <h2>Nossas bolsas, feitas com amor ❤️</h2><div class="gold-line"></div>
